@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Core Uploader</title>
+    <title>FileUp</title>
     <script src="../../dist/fileup-core.js"></script>
     <script src="jquery-1.12.0.min.js"></script>
 </head>
@@ -13,7 +13,26 @@
     $(function () {
 
         var uploader = window.uploader = new FileUp({
-            backendUrl: 'server.php'
+            backendUrl: 'server.php',
+            dropArea: {
+                enable: true,
+                container: $('<div />')
+                        .appendTo('body')
+                        .css({
+                            width: 300,
+                            height: 200,
+                            position: 'absolute',
+                            top: 0,
+                            right: 0,
+                            background: '#ddd'
+                        })
+                        .get(0)
+            },
+            uploaderConfigs: {
+                xhr: {
+                    bytesMaxPart: 1000000
+                }
+            }
         });
 
         var container = $('body');
@@ -26,7 +45,13 @@
             /**
              * @param {FileUp.models.File} file
              **/
-            var getProgressText = function(file) {
+            var getStatusText = function (file) {
+                return file.isStatusEnd() ? file.getResult() : file.getStatus();
+            };
+            /**
+             * @param {FileUp.models.File} file
+             **/
+            var getProgressText = function (file) {
                 return [
                     Math.round(file.getBytesUploaded() / 1000) + ' of ' + Math.round(file.getBytesTotal() / 1000) + ' kb',
                     file.progress.getPercent() + '%',
@@ -44,7 +69,7 @@
                         var li = $('<li />')
                                 .appendTo(container.find('.uploader-list'))
                                 .append(
-                                        $('<span class="status" style="padding-right: 10px; color: darkgreen;" />').text(file.getStatus())
+                                        $('<span class="status" style="padding-right: 10px; color: darkgreen;" />').text(getStatusText(file))
                                 )
                                 .append(
                                         $('<span class="name" />').text(file.getName())
@@ -53,7 +78,7 @@
                                         $('<div class="actions" />').append(
                                                 $('<button />')
                                                         .text('Pause')
-                                                        .on('click', function() {
+                                                        .on('click', function () {
                                                             file.pause();
                                                             $(this).text($(this).text() === 'Pause' ? 'Resume' : 'Pause')
                                                         })
@@ -68,7 +93,7 @@
 
                         file.on([FileUp.models.File.EVENT_STATUS], function () {
                             li.find('.actions').toggle(file.isStatusProcess() || file.isStatusPause());
-                            li.find('.status').text(file.getStatus());
+                            li.find('.status').text(getStatusText(file));
                             if (file.isStatusEnd() && file.isResultError()) {
                                 li.find('.error').text(file.getResultHttpStatus() + ': ' + file.getResultHttpMessage());
                             }
