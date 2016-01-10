@@ -25,3 +25,12 @@ build/Release
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
+
+# phpstorm project files
+/.idea/workspace.xml
+/.idea/modules.xml
+/.idea/*.iml
+/.idea/dictionaries/
+/.idea/dataSources.*
+/.idea/libraries/
+/.idea/jsLibraryMappings.xml

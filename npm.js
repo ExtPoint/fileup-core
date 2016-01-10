@@ -1,0 +1,20 @@
+module.exports = require('./lib/FileUp');
+
+require('./lib/base/Component');
+require('./lib/base/Element');
+require('./lib/base/Exception');
+require('./lib/base/Manager');
+require('./lib/base/Object');
+require('./lib/form/Form');
+require('./lib/form/FormElement');
+require('./lib/form/InputElement');
+require('./lib/helpers/BrowserHelper');
+require('./lib/helpers/ClassHelper');
+require('./lib/helpers/UrlHelper');
+require('./lib/managers/QueueManager');
+require('./lib/models/File');
+require('./lib/models/FileProgress');
+require('./lib/models/QueueCollection');
+require('./lib/uploaders/BaseUploader');
+require('./lib/uploaders/IframeUploader');
+require('./lib/uploaders/XhrUploader');
