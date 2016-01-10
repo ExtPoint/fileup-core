@@ -37,6 +37,13 @@
 
         var container = $('body');
 
+        uploader.dropArea.on(FileUp.form.DropArea.EVENT_DRAG_OVER, function() {
+            $(uploader.dropArea.container).css({background: 'burlywood'});
+        });
+        uploader.dropArea.on(FileUp.form.DropArea.EVENT_DRAG_LEAVE, function() {
+            $(uploader.dropArea.container).css({background: '#ddd'});
+        });
+
         container.find('.uploader-browse').on('click', function () {
             uploader.browse();
         });

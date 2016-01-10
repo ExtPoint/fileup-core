@@ -1,6 +1,20 @@
 # FileUp Core
 JavaScript core component for upload file to server
 
+# Features
+
+- No dependencies required
+- No browser plugins (e.g. Adobe Flash) required
+- Worked without UI
+- Multiple file upload
+- Drag & Drop support
+- Upload folders
+- Upload process dimensions: progress, time left, speed
+- Graceful fallback for legacy browsers
+- Pause upload support
+- Chunked uploads
+- Customizable and extensible
+
 # Install
 
 ## Npm
