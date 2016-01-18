@@ -57,7 +57,7 @@ class FileUp {
         $files = [];
         $postFiles = $this->normalizePostFiles($this->postFile);
 
-        foreach ($postFiles as $file) {
+        foreach ($postFiles as $i => $file) {
             // Check PHP upload errors
             if ($file['error']) {
                 throw new FileUpException('Upload error.', $file['error']);
@@ -71,9 +71,11 @@ class FileUp {
             }
 
             $files[] = [
+                'uid' => !empty($_GET['uids'][$i]) ? $_GET['uids'][$i] : null,
                 'name' => $file['name'],
                 'path' => $filePath,
-                'size' => $file['size'],
+                'bytesUploaded' => $file['size'],
+                'bytesTotal' => $file['size'],
                 'type' => $file['type'],
             ];
         }
@@ -151,9 +153,11 @@ class FileUp {
 
         return [
             [
+                'uid' => !empty($_GET['uids'][0]) ? $_GET['uids'][0] : null,
                 'name' => $fileName,
                 'path' => $filePath,
-                'size' => $fileSize,
+                'bytesUploaded' => $contentRange ? $contentRange['end'] : $fileSize,
+                'bytesTotal' => $contentRange ? $contentRange['total'] : $fileSize,
                 'type' => $fileType,
             ]
         ];
@@ -185,7 +189,7 @@ class FileUp {
 $fileUp = new FileUp();
 $fileUp->destinationDir = __DIR__ . '/tmp';
 try {
-    $fileUp->upload();
+    var_dump($fileUp->upload());
 } catch (Exception $e) {
     header('HTTP/1.0 500 Error');
     throw $e;
