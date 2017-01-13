@@ -34,3 +34,8 @@ node_modules
 /.idea/dataSources.*
 /.idea/libraries/
 /.idea/jsLibraryMappings.xml
+
+/tests/web/assets/*
+/tests/web/tmp/*
+
+!.gitempty

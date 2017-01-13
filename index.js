@@ -1,10 +1,11 @@
-module.exports = require('./npm');
+import FileUp from './lib/FileUp';
 
 if (typeof window !== 'undefined') {
     var prev = window.FileUp;
-    var FileUp = window.FileUp = module.exports;
     FileUp.noConflict = function() {
         window.FileUp = prev;
         return FileUp;
-    }
+    };
 }
+
+export default FileUp;

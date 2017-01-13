@@ -189,7 +189,7 @@ class FileUp {
 $fileUp = new FileUp();
 $fileUp->destinationDir = __DIR__ . '/tmp';
 try {
-    var_dump($fileUp->upload());
+    echo json_encode($fileUp->upload());
 } catch (Exception $e) {
     header('HTTP/1.0 500 Error');
     throw $e;

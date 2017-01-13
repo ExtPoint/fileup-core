@@ -1,11 +1,11 @@
 {
   "name": "fileup-core",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "description": "JavaScript core component for upload file to server",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ExtPoint/core-uploader"
+    "url": "https://github.com/ExtPoint/fileup-core"
   },
   "keywords": [
     "javascript",
@@ -14,15 +14,12 @@
   "author": "Vladimir Kozhin",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ExtPoint/core-uploader/issues"
+    "url": "https://github.com/ExtPoint/fileup-core/issues"
   },
-  "homepage": "https://github.com/ExtPoint/core-uploader",
-  "dependencies": {
-    "neatness": "^1.1.12",
-    "underscore": "^1.8.3"
-  },
+  "homepage": "https://github.com/ExtPoint/fileup-core",
   "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-easy": "^0.1.9"
+    "babel-core": "^6.21.0",
+    "jquery": "^3.1.1",
+    "webpack-easy": "^0.1.3"
   }
 }

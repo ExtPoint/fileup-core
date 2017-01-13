@@ -4,117 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FileUp</title>
-    <script src="../../dist/fileup-core.js"></script>
-    <script src="jquery-1.12.0.min.js"></script>
 </head>
 <body>
 
-<script>
-    $(function () {
-
-        var uploader = window.uploader = new FileUp({
-            backendUrl: 'server.php',
-            dropArea: {
-                enable: true,
-                container: $('<div />')
-                        .appendTo('body')
-                        .css({
-                            width: 300,
-                            height: 200,
-                            position: 'absolute',
-                            top: 0,
-                            right: 0,
-                            background: '#ddd'
-                        })
-                        .get(0)
-            },
-            uploaderConfigs: {
-                xhr: {
-                    bytesMaxPart: 5000000
-                }
-            }
-        });
-
-        var container = $('body');
-
-        uploader.dropArea.on(FileUp.form.DropArea.EVENT_DRAG_OVER, function() {
-            $(uploader.dropArea.container).css({background: 'burlywood'});
-        });
-        uploader.dropArea.on(FileUp.form.DropArea.EVENT_DRAG_LEAVE, function() {
-            $(uploader.dropArea.container).css({background: '#ddd'});
-        });
-
-        container.find('.uploader-browse').on('click', function () {
-            uploader.browse();
-        });
-
-        uploader.queue.on(FileUp.models.QueueCollection.EVENT_ADD, function (files) {
-            /**
-             * @param {FileUp.models.File} file
-             **/
-            var getStatusText = function (file) {
-                return file.isStatusEnd() ? file.getResult() : file.getStatus();
-            };
-            /**
-             * @param {FileUp.models.File} file
-             **/
-            var getProgressText = function (file) {
-                return [
-                    Math.round(file.getBytesUploaded() / 1000) + ' of ' + Math.round(file.getBytesTotal() / 1000) + ' kb',
-                    file.progress.getPercent() + '%',
-                    file.progress.getTimeLeft() + 's left',
-                    (Math.round(file.progress.getSpeed() / 1000) / 1000) + 'Mb/s'
-                ].join(', ');
-            };
-
-            $.each(files,
-                    /**
-                     * @param {number} i
-                     * @param {FileUp.models.File} file
-                     **/
-                    function (i, file) {
-                        var li = $('<li />')
-                                .appendTo(container.find('.uploader-list'))
-                                .append(
-                                        $('<span class="status" style="padding-right: 10px; color: darkgreen;" />').text(getStatusText(file))
-                                )
-                                .append(
-                                        $('<span class="name" />').text(file.getName())
-                                )
-                                .append(
-                                        $('<div class="actions" />').append(
-                                                $('<button />')
-                                                        .text('Pause')
-                                                        .on('click', function () {
-                                                            file.pause();
-                                                            $(this).text($(this).text() === 'Pause' ? 'Resume' : 'Pause')
-                                                        })
-                                        )
-                                )
-                                .append(
-                                        $('<div class="progress" />').text(getProgressText(file))
-                                )
-                                .append(
-                                        $('<div class="error" style="color: darkred;" />')
-                                );
-
-                        file.on([FileUp.models.File.EVENT_STATUS], function () {
-                            li.find('.actions').toggle(file.isStatusProcess() || file.isStatusPause());
-                            li.find('.status').text(getStatusText(file));
-                            if (file.isStatusEnd() && file.isResultError()) {
-                                li.find('.error').text(file.getResultHttpStatus() + ': ' + file.getResultHttpMessage());
-                            }
-                        });
-                        file.on(FileUp.models.File.EVENT_PROGRESS, function () {
-                            li.find('.progress').text(getProgressText(file));
-                        });
-                    });
-        });
-    })
-</script>
-
 <button class="uploader-browse">Add files</button>
 <ul class="uploader-list"></ul>
+
+<script src="http://localhost:5510/assets/bundle-index.js"></script>
 
 </body>
 </html>
