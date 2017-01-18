@@ -37,6 +37,11 @@ export default class XhrUploader extends BaseUploader {
         this.bytesMaxPart = 2097151 * 1024;
 
         /**
+         * @type {object}
+         */
+        this.headers = {};
+
+        /**
          * @type {number}
          */
         this._lastReportTime = null;
@@ -98,12 +103,21 @@ export default class XhrUploader extends BaseUploader {
             this._xhr.withCredentials = true;
         } catch (e) {}
 
+        // Set headers
+        let headers = {};
         if (BrowserHelper.isWebkit() || BrowserHelper.isTrident()) {
-            this._xhr.setRequestHeader('If-None-Match', '*');
-            this._xhr.setRequestHeader('If-Modified-Since', 'Mon, 26 Jul 1997 05:00:00 GMT');
-            this._xhr.setRequestHeader('Cache-Control', 'no-cache');
-            this._xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            headers = {
+                ...headers,
+                'If-None-Match': '*',
+                'If-Modified-Since': 'Mon, 26 Jul 1997 05:00:00 GMT',
+                'Cache-Control': 'no-cache',
+                'X-Requested-With': 'XMLHttpRequest'
+            };
         }
+        headers = {...headers, ...this.headers};
+        Object.keys(headers).forEach(key => {
+            this._xhr.setRequestHeader(key, headers[key]);
+        });
     }
 
     _startInternal() {

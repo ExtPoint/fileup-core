@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import FileUp from '../../index';
+import FileUp from '../../src/index';
 import DropArea from '../../lib/form/DropArea';
 import File from '../../lib/models/File';
 import QueueCollection from '../../lib/models/QueueCollection';

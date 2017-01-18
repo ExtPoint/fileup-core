@@ -1,8 +1,8 @@
 {
   "name": "fileup-core",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "JavaScript core component for upload file to server",
-  "main": "index.js",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/ExtPoint/fileup-core"
@@ -15,6 +15,9 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ExtPoint/fileup-core/issues"
+  },
+  "scripts": {
+    "build": "node webpack production && babel src --out-dir lib"
   },
   "homepage": "https://github.com/ExtPoint/fileup-core",
   "devDependencies": {

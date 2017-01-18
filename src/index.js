@@ -63,6 +63,12 @@ export default class FileUp {
             className: File
         };
 
+        /**
+         * Set force iframe or xhr. Null - auto detect from browser support
+         * @type {string|null}
+         */
+        this.uploaderName = null;
+
         this.uploaderConfigs = {
             iframe: {
                 className: IframeUploader
@@ -136,7 +142,7 @@ export default class FileUp {
     _onFormSubmit(nativeFiles) {
         var uploader = null;
         var isIE = BrowserHelper.isIE();
-        if (isIE && isIE < 10) {
+        if (this.uploaderName === 'iframe' || (isIE && isIE < 10)) {
             uploader = ClassHelper.createObject(
                 ClassHelper.merge(
                     {

@@ -49,11 +49,11 @@ export default class ClassHelper {
 
             if (typeof object[setter] !== 'function') {
                 if (typeof object[key] === 'function') {
-                    throw new Exception('You can not replace from config function `' + key + '` in object `' + object.className() + '`.');
+                    throw new Exception('You can not replace from config function `' + key + '` in object `' + object.constructor.name + '`.');
                 }
 
                 if (typeof object[key] === 'undefined') {
-                    throw new Exception('Config param `' + key + '` is undefined in object `' + object.className() + '`.');
+                    throw new Exception('Config param `' + key + '` is undefined in object `' + object.constructor.name + '`.');
                 }
             }
 

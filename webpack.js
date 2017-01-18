@@ -3,7 +3,7 @@ const webpackEasy = require('webpack-easy');
 webpackEasy
     .entry(
         webpackEasy.isProduction() ?
-        {'dist/fileup-core': './index.js'} :
+        {'dist/fileup-core': './src/index.js'} :
         {'assets/bundle-index': './tests/web/index.js'}
     )
     .output({
