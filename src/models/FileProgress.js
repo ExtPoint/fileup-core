@@ -50,7 +50,10 @@ export default class FileProgress extends BaseObject {
 
     toJSON() {
         return {
-            history: this.history
+            history: this.history,
+            timeLeft: this.getTimeLeft(),
+            speed: this.getSpeed(),
+            percent: this.getPercent(),
         };
     }
 

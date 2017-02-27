@@ -415,6 +415,8 @@ export default class File extends Component {
      */
     toJSON() {
         return {
+            uid: this.getUid(),
+            name: this.getName(),
             path: this.getPath(),
             type: this.getType(),
             bytesUploaded: this.getBytesUploaded(),
