@@ -18,6 +18,11 @@ export default class QueueCollection extends Component {
         this.maxConcurrentUploads = 3;
 
         /**
+         * @type {number|null}
+         */
+        this.maxFiles = null;
+
+        /**
          * @type {File[]}
          */
         this._files = [];
