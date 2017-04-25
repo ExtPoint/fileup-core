@@ -2,7 +2,7 @@
   "name": "fileup-core",
   "version": "1.0.10",
   "description": "JavaScript core component for upload file to server",
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/ExtPoint/fileup-core"
@@ -18,7 +18,6 @@
   },
   "files": [
     "dist",
-    "lib",
     "src"
   ],
   "scripts": {
