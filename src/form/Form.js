@@ -18,6 +18,11 @@ export default class Form extends Component {
         this.container = null;
 
         /**
+         * @type {object}
+         */
+        this.inputAttributes = null;
+
+        /**
          * @type {boolean}
          */
         this._isMultiple = true;
@@ -107,7 +112,8 @@ export default class Form extends Component {
 
         this._lastInputElement = new InputElement({
             multiple: this.getMultiple(),
-            onChange: this._onInputChange.bind(this)
+            onChange: this._onInputChange.bind(this),
+            inputAttributes: this.inputAttributes,
         });
         this._lastInputElement.appendTo(this._formElement.element);
         this._inputElements.push(this._lastInputElement);

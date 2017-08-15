@@ -27,6 +27,11 @@ export default class InputElement extends Element {
          */
         this.onChange = null;
 
+        /**
+         * @type {object}
+         */
+        this.inputAttributes = null;
+
         this._fileNames = {};
 
         super.preInit(...arguments);
@@ -37,6 +42,12 @@ export default class InputElement extends Element {
         this.element.type = 'file';
         this.element.name = this.name + (this.multiple ? '[]' : '');
         this.element.multiple = this.multiple;
+
+        if (this.inputAttributes) {
+            Object.keys(this.inputAttributes).forEach(key => {
+                this.element.setAttribute(key, this.inputAttributes[key]);
+            });
+        }
 
         // IE8 file field transparency fix.
         if (BrowserHelper.isIE()) {
