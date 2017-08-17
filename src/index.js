@@ -155,10 +155,18 @@ export default class FileUp {
             );
         }
 
+        var queueTotal = this.queue.getCount();
+
         var i = 0;
         var files = [];
         for (var path in nativeFiles) {
             if (nativeFiles.hasOwnProperty(path)) {
+                // Files limit
+                queueTotal++;
+                if (this.queue.maxFiles !== null && queueTotal > this.queue.maxFiles) {
+                    break;
+                }
+
                 var nativeFile = nativeFiles[path];
                 var file = ClassHelper.createObject(
                     ClassHelper.merge(

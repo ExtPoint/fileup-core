@@ -27,6 +27,7 @@ build/Release
 node_modules
 
 # phpstorm project files
+/.idea/misc.xml
 /.idea/workspace.xml
 /.idea/modules.xml
 /.idea/*.iml
