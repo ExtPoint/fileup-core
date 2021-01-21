@@ -203,7 +203,7 @@ export default class IframeUploader extends BaseUploader {
                     this.files[i].setResultHttpStatus(status);
                     this.files[i].setResultHttpMessage(data);
                 }
-                this.trigger(BaseUploader.EVENT_ERROR, [500, data]);
+                this.trigger(BaseUploader.EVENT_END, [500, data]);
             }
         } else {
             for (var i = 0, l = this.files.length; i < l; i++) {

@@ -188,13 +188,8 @@ export default class XhrUploader extends BaseUploader {
                 this.trigger(BaseUploader.EVENT_END_PART);
             } else {
                 var data = (this.responseParser || this._defaultResponseParser).call(this, text);
-                if (data instanceof Array) {
-                    this.file.setResultHttpMessage(data[0]);
-                    this.trigger(BaseUploader.EVENT_END, [this._xhr.status, data]);
-                } else {
-                    this.file.setResultHttpMessage(data);
-                    this.trigger(BaseUploader.EVENT_ERROR, [this._xhr.status, data]);
-                }
+                this.file.setResultHttpMessage(data instanceof Array ? data[0] : data);
+                this.trigger(BaseUploader.EVENT_END, [this._xhr.status, data]);
             }
         } else {
             this.file.setResultHttpMessage(text);
