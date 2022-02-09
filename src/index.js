@@ -29,6 +29,11 @@ export default class FileUp {
         this.backendParams = {};
 
         /**
+         * @type {object}
+         */
+        this.uploaderConfig = {};
+
+        /**
          * @type {Form}
          */
         this.form = {
@@ -186,8 +191,9 @@ export default class FileUp {
                             {
                                 url: this.backendUrl,
                                 params: this.backendParams,
-                                file: file
+                                file: file,
                             },
+                            this.uploaderConfig,
                             this.uploaderConfigs.xhr
                         )
                     )

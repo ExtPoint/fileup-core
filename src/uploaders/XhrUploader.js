@@ -42,6 +42,16 @@ export default class XhrUploader extends BaseUploader {
         this.headers = {};
 
         /**
+         * @type {boolean}
+         */
+        this.useFormData = false;
+
+        /**
+         * @type {string}
+         */
+        this.fileFieldName = 'file';
+
+        /**
          * @type {number}
          */
         this._lastReportTime = null;
@@ -137,6 +147,13 @@ export default class XhrUploader extends BaseUploader {
         this._bytesStart = this.file.getBytesUploaded();
         this._bytesEnd = Math.min(this._bytesStart + this.bytesMaxPart, bytesTotal);
 
+        var dataToSend = this.file.getNative();
+
+        if (this.useFormData) {
+            dataToSend = new FormData();
+            dataToSend.append(this.fileFieldName, this.file.getNative());
+        }
+
         // Check partial upload
         if (this._bytesStart > 0 || this._bytesEnd < bytesTotal) {
             this._xhr.setRequestHeader('Content-Range', 'bytes ' + this._bytesStart + '-' + (this._bytesEnd - 1) + '/' + bytesTotal);
@@ -147,7 +164,7 @@ export default class XhrUploader extends BaseUploader {
                 this._xhr.send(this.file.getNative().slice(this._bytesStart));
             }
         } else {
-            this._xhr.send(this.file.getNative());
+            this._xhr.send(dataToSend);
         }
     }
 
