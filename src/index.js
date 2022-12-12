@@ -14,10 +14,13 @@ import QueueManager from './managers/QueueManager';
 import File from './models/File';
 import IframeUploader from './uploaders/IframeUploader';
 import XhrUploader from './uploaders/XhrUploader';
+import AxiosUploader from "./uploaders/AxiosUploader";
 
 export default class FileUp {
 
     constructor(config) {
+        this.axiosInstance = null;
+
         /**
          * @type {string}
          */
@@ -80,6 +83,9 @@ export default class FileUp {
             },
             xhr: {
                 className: XhrUploader
+            },
+            axios: {
+                className: AxiosUploader
             }
         };
 
@@ -153,7 +159,7 @@ export default class FileUp {
                     {
                         url: this.backendUrl,
                         params: this.backendParams,
-                        form: this.form
+                        form: this.form,
                     },
                     this.uploaderConfigs.iframe
                 )
@@ -186,18 +192,30 @@ export default class FileUp {
                     )
                 );
 
-                file.setUploader(uploader || ClassHelper.createObject(
+                if (this.uploaderName === 'axios') {
+                    uploader = ClassHelper.createObject(
                         ClassHelper.merge(
                             {
                                 url: this.backendUrl,
                                 params: this.backendParams,
+                                axios: this.axiosInstance,
                                 file: file,
                             },
-                            this.uploaderConfig,
-                            this.uploaderConfigs.xhr
+                            this.uploaderConfigs.axios
                         )
+                    );
+                }
+                file.setUploader(uploader || ClassHelper.createObject(
+                    ClassHelper.merge(
+                        {
+                            url: this.backendUrl,
+                            params: this.backendParams,
+                            file: file,
+                        },
+                        this.uploaderConfig,
+                        this.uploaderConfigs.xhr
                     )
-                );
+                ));
 
                 files.push(file);
             }
