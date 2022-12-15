@@ -1,6 +1,6 @@
 {
   "name": "fileup-core",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "JavaScript core component for upload file to server",
   "main": "lib/index.js",
   "repository": {
