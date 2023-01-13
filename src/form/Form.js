@@ -22,6 +22,8 @@ export default class Form extends Component {
          */
         this.inputAttributes = null;
 
+        this.accept = null;
+
         /**
          * @type {boolean}
          */
@@ -47,7 +49,9 @@ export default class Form extends Component {
 
     init() {
         // Init container
-        this.container = this.container || document.body;
+        if (typeof document !== 'undefined' && document.body) {
+            this.container = this.container || document.body;
+        }
 
         // Create form element
         this._formElement = new FormElement();
@@ -113,6 +117,7 @@ export default class Form extends Component {
         this._lastInputElement = new InputElement({
             multiple: this.getMultiple(),
             onChange: this._onInputChange.bind(this),
+            accept: this.accept,
             inputAttributes: this.inputAttributes,
         });
         this._lastInputElement.appendTo(this._formElement.element);

@@ -65,7 +65,9 @@ export default class IframeUploader extends BaseUploader {
         this._name = this.namePrefix + (++IframeUploader._Counter);
 
         // Init container
-        this.container = this.container || document.body;
+        if (typeof document !== 'undefined' && document.body) {
+            this.container = this.container || document.body;
+        }
 
         // Render frame
         this._initContainer();

@@ -106,14 +106,27 @@ export default class AxiosUploader extends BaseUploader {
         if (this.axios instanceof Promise) {
             Promise.resolve(this.axios)
                 .then(axios => {
-                    axios.request(config).catch(() => {
-                        this.trigger(BaseUploader.ERROR);
-                    });
+                    axios.request(config)
+                        .then(response => {
+                            this.file.setResultHttpMessage(response.data);
+                            this.trigger(BaseUploader.EVENT_END,
+                                [response.status, response.data]
+                            );
+                        })
+                        .catch(() => {
+                            this.trigger(BaseUploader.ERROR);
+                        });
                 });
         } else {
-            this.axios.request(config).catch(() => {
-                this.trigger(BaseUploader.ERROR);
-            });
+            this.axios.request(config)
+                .then(response => {
+                    this.trigger(BaseUploader.EVENT_END,
+                        [response.status, response.data]
+                    );
+                })
+                .catch(() => {
+                    this.trigger(BaseUploader.ERROR);
+                });
         }
     }
 
@@ -124,10 +137,6 @@ export default class AxiosUploader extends BaseUploader {
         }
         this._lastReportTime = iNow;
 
-        if (progressEvent.total === progressEvent.loaded) {
-            this.trigger(BaseUploader.EVENT_END);
-        } else {
-            this.trigger(BaseUploader.EVENT_PROGRESS, [progressEvent.loaded]);
-        }
+        this.trigger(BaseUploader.EVENT_PROGRESS, [progressEvent.loaded]);
     }
 }

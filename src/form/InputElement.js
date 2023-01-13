@@ -23,6 +23,11 @@ export default class InputElement extends Element {
         this.multiple = false;
 
         /**
+         * @type {string}
+         */
+        this.accept = null;
+
+        /**
          * @type {function}
          */
         this.onChange = null;
@@ -42,6 +47,7 @@ export default class InputElement extends Element {
         this.element.type = 'file';
         this.element.name = this.name + (this.multiple ? '[]' : '');
         this.element.multiple = this.multiple;
+        this.element.accept = this.accept;
 
         if (this.inputAttributes) {
             Object.keys(this.inputAttributes).forEach(key => {
